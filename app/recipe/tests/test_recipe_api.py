@@ -23,6 +23,7 @@ from recipe.serializers import (
 
 RECIPES_URL = reverse('recipe:recipe-list')
 
+
 def detail_url(recipe_id):
     """Create and return a recipe detail URL."""
     return reverse('recipe:recipe-detail', args=[recipe_id])
@@ -48,7 +49,6 @@ def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
 
-
 class PublicRecipeAPITests(TestCase):
     """Test unauthenticated API requests."""
 
@@ -67,7 +67,7 @@ class PrivateRecipeApiTests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.user =create_user(email='user@example.com', password='test123')
+        self.user = create_user(email='user@example.com', password='test123')
         self.client.force_authenticate(self.user)
 
     def test_retrieve_recipes(self):
@@ -84,7 +84,9 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_recipe_list_limited_to_user(self):
         """Test list of recipes is limited to authenticated user."""
-        other_user = create_user(email='other@example.com', password ='password123')
+        other_user = create_user(
+            email='other@example.com',
+            password='password123')
         create_recipe(user=other_user)
         create_recipe(user=self.user)
 
@@ -119,6 +121,7 @@ class PrivateRecipeApiTests(TestCase):
         for k, v in payload.items():
             self.assertEqual(getattr(recipe, k), v)
         self.assertEqual(recipe.user, self.user)
+
     def test_partial_update(self):
         """Test partial update of a recipe."""
         original_link = 'https://example.com/recipe.pdf'
@@ -241,6 +244,7 @@ class PrivateRecipeApiTests(TestCase):
                 user=self.user,
             ).exists()
             self.assertTrue(exists)
+
     def test_create_tag_on_update(self):
         """Test create tag when updating a recipe."""
         recipe = create_recipe(user=self.user)
