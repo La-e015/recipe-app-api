@@ -33,10 +33,10 @@ def detail_url(recipe_id):
     """Create and return a recipe detail URL."""
     return reverse('recipe:recipe-detail', args=[recipe_id])
 
+
 def image_upload_url(recipe_id):
     """Create and return an image upload URL."""
     return reverse('recipe:recipe-upload-image', args=[recipe_id])
-
 
 
 def create_recipe(user, **params):
@@ -340,6 +340,7 @@ class PrivateRecipeApiTests(TestCase):
                 user=self.user,
             ).exists()
             self.assertTrue(exists)
+
     def test_create_ingredient_on_update(self):
         """Test creating an ingredient when updating a recipe."""
         recipe = create_recipe(user=self.user)

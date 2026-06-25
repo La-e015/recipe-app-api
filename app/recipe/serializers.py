@@ -9,6 +9,7 @@ from core.models import (
     Ingredient
 )
 
+
 class IngredientSerializer(serializers.ModelSerializer):
     """Serializer for ingredients."""
 
@@ -92,7 +93,7 @@ class RecipeDetailSerializer(RecipeSerializer):
     """Serializer for recipe detail view."""
 
     class Meta(RecipeSerializer.Meta):
-        fields = RecipeSerializer.Meta.fields + ['description','image']
+        fields = RecipeSerializer.Meta.fields + ['description', 'image']
 
 
 class RecipeImageSerializer(serializers.ModelSerializer):
